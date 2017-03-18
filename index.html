@@ -1,0 +1,137 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery.js"></script>
+    <script>
+   
+        function setRectangles() {
+
+            $('.image').css('background-size', $('body').width().toString() + 'px auto');
+            $('.image.two').css('background-position', '50% -' + ($('body').height() * (1 / 3)).toString() + 'px');
+            $('.image.three').css('background-position', '50% -' + ($('body').height() * (2 / 3)).toString() + 'px');
+
+            var translate1 = getTranslate('.image.one');
+            var translate2 = getTranslate('.image.two');
+            var translate3 = getTranslate('.image.three');
+            //$('.image.one').css('transition', 'left 1s cubic-bezier(.38,.76,.37,.93)');
+            //$('.image.one').css('left', translate + 'px');
+            animate('.image.one', 'left', translate1, 1000, 2000);
+            animate('.image.two', 'right', translate2, 1000, 2000);
+            animate('.image.three', 'left', translate3, 1000, 2000);
+
+            //$('.image.two').css('transition', 'right 1.1s cubic-bezier(0.075, 0.82, 0.165, 1)');
+            //$('.image.two').css('right', translate + 'px');
+
+            //$('.image.three').css('transition', 'left .8s cubic-bezier(0.215, 0.61, 0.355, 1)')
+            // $('.image.three').css('left', translate + 'px')
+        }
+
+        function animate(selector, property, translate, animationTime, centerTime) {
+
+            var x = {};
+            x[property] = translate + 'px'
+
+            $(selector).animate(x, animationTime, function (e) {
+                // after the animation is complete
+                var self = $(this); // here is the div element
+                 x[property] = '200%';
+                // freeze with delay function
+                self.delay(centerTime)
+                    // after freeze time is over, continue with the end transition
+                    .animate(
+                    x
+                    , animationTime, function (e) {
+                        // after the animation is complete
+                        //box.remove(); // remove the div
+                    })
+            })
+        }
+
+        function getTranslate(selector) {
+            var offset = $(selector).offset();
+            var width = $(selector).width();
+            var centerX = offset.left + width / 2;
+
+            var centerWindow = ($('body').width() / 2);
+
+            return centerWindow - (width / 2);
+        }
+
+        $(document).ready(setRectangles);
+        $(window).resize(setRectangles);
+    </script>
+    <script src="index.js"></script>
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .rectangle {
+            position: relative;
+            height: 33.33%;
+            /* for the older browsers fallback */
+            height: calc(100% / 3);
+            padding-bottom: 2px;
+            border-bottom: 1px solid white;
+        }
+        
+        .image {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-image: url("photo.jpg");
+        }
+        
+        .image.one {
+            background-position: 50% 0px;
+            background-repeat: no-repeat;
+            width: 70%;
+            left: -100%;
+        }
+        
+        .image.two {
+            /*background-position: 50% -200px;*/
+            background-repeat: no-repeat;
+            /*margin-left: 100%;*/
+            width: 50%;
+            right: -100%;
+        }
+        
+        .image.three {
+            /*background-position: 50% -400px;*/
+            background-repeat: no-repeat;
+            width: 60%;
+            left: -100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='rectangle'>
+        <div class='image one'>
+        </div>
+    </div>
+
+    <div class='rectangle'>
+        <div class='image two'>
+        </div>
+    </div>
+
+    <div class='rectangle'>
+        <div class='image three'>
+        </div>
+    </div>
+
+</body>
+
+</html>
