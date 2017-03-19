@@ -1,0 +1,41 @@
+body,
+html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.rectangle {
+    position: relative;
+    /* for the older browsers fallback */
+    height: 33.33%;
+    height: calc(100% / 3);
+    padding-bottom: 2px;
+    border-bottom: 1px solid white;
+}
+
+.image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url("photo.jpg");
+}
+
+.image.one {
+    background-position: 50% 0px;
+    background-repeat: no-repeat;
+    width: 70%;
+    left: -100%;
+}
+
+.image.two {
+    background-repeat: no-repeat;
+    width: 50%;
+    right: -100%;
+}
+
+.image.three {
+    background-repeat: no-repeat;
+    width: 60%;
+    left: -100%;
+}
